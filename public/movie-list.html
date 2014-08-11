@@ -1,0 +1,16 @@
+Películas para el {{month}} del {{year}}
+
+<div ng-repeat="movie in movies">
+Título: {{movie.title}}
+
+{{movie.plot}}
+
+{{movie.dore_notes}}
+<div ng-repeat="time in movie.dates">
+		{{time.day}} {{time.hour}}
+</div>
+<div ng-repeat="director in movie.directors">
+		{{director}}
+</div>
+</div>
+

@@ -27,7 +27,7 @@ var Movie = mongoose.model('Movie', {
 });
 
 
-// routes
+// API
 app.get('/api/days/:day', function(req, res) {
 });
 
@@ -39,6 +39,11 @@ app.get('/api/movies', function(req, res) {
 });
 
 app.get('/api/movies/:movie_id', function(req, res) {
+});
+
+// frontend
+app.get('*', function(req, res) {
+    res.sendfile('./public/index.html');
 });
 
 

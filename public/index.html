@@ -2,28 +2,16 @@
 <html ng-app="doreApp">
 
 <head>
+	<title>Horarios del Cine Dorè</title>
 	<meta charset="utf-8" />
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.min.js"></script>
 	<script src="angularapp.js"></script>
 </head>
 
-<body ng-controller="mainController">
-Películas para el {{month}} del {{year}}
+<body>
 
-<div ng-repeat="movie in movies">
-Título: {{movie.title}}
-
-{{movie.plot}}
-
-{{movie.dore_notes}}
-<div ng-repeat="time in movie.dates">
-		{{time.day}} {{time.hour}}
-</div>
-<div ng-repeat="director in movie.directors">
-		{{director}}
-</div>
-</div>
-
+<ng-view></ng-view>
 
 </body>
 
