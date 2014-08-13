@@ -1,13 +1,15 @@
 var app = angular.module('doreApp', ['ngRoute']);
 
 
-app.config(function($routeProvider) {
+app.config(function($locationProvider, $routeProvider) {
 	$routeProvider
 		.when("/", {templateUrl: "movie-list.html", controller: "mainController"})
 		.when("/movies", {templateUrl: "movie-list.html", controller: "mainController"})
 		.when("/movies/new", {templateUrl: "new.html", controller: "addMovieController"})
 		.when("/movies/:id", {templateUrl: "movie-detail.html", controller: "movieDetailController"})
 		.otherwise({redirectTo: '/'});
+
+    $locationProvider.html5Mode(true);
 });
 
 
