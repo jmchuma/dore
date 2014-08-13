@@ -1,18 +1,19 @@
 // set up
+var bodyParser = require('body-parser')
 var express = require('express');
-var app = express();
 var mongoose = require('mongoose');
 
 var mongoUri = 'mongodb://127.0.0.1/cinedore';
 
 // configuration
-mongoose.connect(mongoUri);
-
+var app = express();
 app.use('/', express.static(__dirname+'/public'));
+app.use(bodyParser.json({extended: true}));
 
-
+mongoose.connect(mongoUri);
 var Movie = mongoose.model('Movie', {
     title : String,
+    poster: String,
     directors : [ String ],
     writers : [ String ],
     performers : [ String ],
@@ -36,6 +37,29 @@ app.get('/api/movies', function(req, res) {
         if (err) res.send(err);
 		res.json(movies);
 	});
+});
+
+app.post('/api/movies', function(req, res) {
+    Movie.create({
+        title : req.body.title,
+        poster: req.body.poster,
+        directors : req.body.directors,
+        writers : req.body.writers,
+        performers : req.body.performers,
+        countries : req.body.contries,
+        runtime : req.body.runtime,
+        year : req.body.year,
+        vo : req.body.vo,
+        sub : req.body.sub,
+        dates : req.body.dates,
+        dore_notes : req.body.dore_notes,
+        plot : req.body.plot
+        },
+        function(err, movie){
+            if (err) {
+            } else {
+            }
+        });
 });
 
 app.get('/api/movies/:movie_id', function(req, res) {

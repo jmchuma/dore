@@ -5,6 +5,7 @@ app.config(function($routeProvider) {
 	$routeProvider
 		.when("/", {templateUrl: "movie-list.html", controller: "mainController"})
 		.when("/movies", {templateUrl: "movie-list.html", controller: "mainController"})
+		.when("/movies/new", {templateUrl: "new.html", controller: "addMovieController"})
 		.otherwise({redirectTo: '/'});
 });
 
@@ -16,6 +17,24 @@ app.controller('mainController', function($scope, $http) {
 			//$scope.month = response.month;
 			//$scope.year = response.year;
 			$scope.movies = response;
+		})
+		.error(function(response) {
+			console.log('Error: ' + response);
 		});
+
+});
+
+
+app.controller('addMovieController', function($scope, $http) {
+    // empty objecto to hold the form data
+    $scope.formData = {};
+
+    $scope.processForm = function() {
+        $http.post('/api/movies', $scope.formData)
+            .success(function(data) {
+            })
+            .error(function(data) {
+            });
+    };
 });
 

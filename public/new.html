@@ -1,0 +1,42 @@
+<form ng-submit="processForm()" >
+	<label for="title">Título</label>
+	<input id="title" name="title" type="text" ng-model="formData.title" required/>
+
+	<label for="poster">Cartel</label>
+	<input id="poster" name="title" type="url"  ng-model="formData.posters" />
+
+	<label for="directors">Directores</label>
+	<input id="directors" name="directors" type="text" ng-model="formData.directors" />
+
+	<label for="writers">Guionistas</label>
+	<input id="writers" name="writers" type="text" ng-model="formData.writers" />
+
+	<label for="performers">Intérpretes</label>
+	<input id="performers" name="performers" type="text" ng-model="formData.performers" />
+
+	<label for="countries">Paises</label>
+	<input id="countres" name="countres" type="text" ng-model="formData.contries" />
+
+	<label for="runtime">Duración</label>
+	<input id="runtime"  name="runtime" type="number" ng-model="formData.runtime" min="0" />
+
+	<label for="year">Año</label>
+	<input id="year"  name="year" type="number" ng-model="formData.year" min="1890" />
+
+	<label for="vo">Versión original</label>
+	<input id="vo"  name="vo" type="text" ng-model="formData.vo" />
+
+	<label for="sub">Subtítulos</label>
+	<input id="sub"  name="sub" type="text" ng-model="formData.sub" />
+
+	<label for="dates">Fechas</label>
+	<input id="dates"  name="dates" type="datetime" ng-model="formData.dates" required/>
+
+	<label for="dore_notes">Notas del cine</label>
+	<textarea id="dore_notes"  name="dore_notes" ng-model="formData.dore_notes" placeholder="Las notas que ponen en el programa." ></textarea>
+
+	<label for="plot">Argumento</label>
+	<textarea id="plot"  name="plot" ng-model="formData.plot" placeholder="Algo más concreto que las notas que ponen en el programa." ></textarea>
+
+	<input type="submit" />
+</form>
