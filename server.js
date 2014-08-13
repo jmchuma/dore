@@ -67,7 +67,7 @@ app.post('/api/movies', function(req, res) {
 app.get('/api/movies/:movie_id', function(req, res) {
     Movie.findById(req.param('movie_id'), function(err, movie) {
         if(err) {
-            res.json(err);
+            res.json(404, err);
         } else {
             res.json(movie);
         }
