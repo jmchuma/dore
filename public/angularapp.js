@@ -6,6 +6,7 @@ app.config(function($routeProvider) {
 		.when("/", {templateUrl: "movie-list.html", controller: "mainController"})
 		.when("/movies", {templateUrl: "movie-list.html", controller: "mainController"})
 		.when("/movies/new", {templateUrl: "new.html", controller: "addMovieController"})
+		.when("/movies/:id", {templateUrl: "movie-detail.html", controller: "movieDetailController"})
 		.otherwise({redirectTo: '/'});
 });
 
@@ -36,5 +37,16 @@ app.controller('addMovieController', function($scope, $http) {
             .error(function(data) {
             });
     };
+});
+
+
+app.controller('movieDetailController', function($scope, $http, $routeParams) {
+    $http.get("/api/movies/"+$routeParams.id)
+        .success(function(res) {
+            $scope.movie = res;
+        })
+        .error(function(res) {
+            $scope.error = res;
+        });
 });
 
