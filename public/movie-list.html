@@ -1,16 +1,17 @@
-Películas para el {{month}} del {{year}}
+<div class="movie" ng-repeat="movie in movies">
+Título: {{movie.title}} <br/>
 
-<div ng-repeat="movie in movies">
-Título: {{movie.title}}
+Plot: {{movie.plot}} <br />
 
-{{movie.plot}}
+Dore notes: {{movie.dore_notes}} <br />
+<span ng-repeat="time in movie.dates">
+	{{time.day}} {{time.hour}}
+</span>
 
-{{movie.dore_notes}}
-<div ng-repeat="time in movie.dates">
-		{{time.day}} {{time.hour}}
-</div>
-<div ng-repeat="director in movie.directors">
-		{{director}}
-</div>
+<span ng-repeat="director in movie.directors">
+	{{director}}
+</span>
+
+See <a href="/movies/{{movie._id}}">details</a>
 </div>
 
