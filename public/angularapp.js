@@ -2,12 +2,24 @@ angular.module('doreApp', ['ngRoute']);
 
 
 angular.module('doreApp').config(function($locationProvider, $routeProvider) {
-	$routeProvider
-		.when("/", {templateUrl: "movie-list.html", controller: "movieListController"})
-		.when("/movies", {templateUrl: "movie-list.html", controller: "movieListController"})
-		.when("/movies/new", {templateUrl: "new.html", controller: "addMovieController"})
-		.when("/movies/:id", {templateUrl: "movie-detail.html", controller: "movieDetailController"})
-		.otherwise({redirectTo: '/'});
+    $routeProvider
+        .when("/", {
+            templateUrl: "movie-list.html",
+            controller: "movieListController"
+        })
+        .when("/movies", {
+            templateUrl: "movie-list.html",
+            controller: "movieListController"
+        })
+        .when("/movies/new", {
+            templateUrl: "new.html",
+            controller: "addMovieController"
+        })
+        .when("/movies/:id", {
+            templateUrl: "movie-detail.html",
+            controller: "movieDetailController"
+        })
+        .otherwise({redirectTo: '/'});
 
     $locationProvider.html5Mode(true);
 });
@@ -15,16 +27,16 @@ angular.module('doreApp').config(function($locationProvider, $routeProvider) {
 
 angular.module('doreApp').controller('movieListController', ['$scope', '$http',
         function($scope, $http) {
-	$http.get("/api/movies")
-		.success(function(response) {
-			console.log(response);
-			//$scope.month = response.month;
-			//$scope.year = response.year;
-			$scope.movies = response;
-		})
-		.error(function(response) {
-			console.log('Error: ' + response);
-		});
+    $http.get("/api/movies")
+        .success(function(response) {
+            console.log(response);
+            //$scope.month = response.month;
+            //$scope.year = response.year;
+            $scope.movies = response;
+        })
+        .error(function(response) {
+            console.log('Error: ' + response);
+        });
 
 }]);
 

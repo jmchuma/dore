@@ -35,8 +35,8 @@ app.get('/api/days/:day', function(req, res) {
 app.get('/api/movies', function(req, res) {
     Movie.find(function(err, movies) {
         if (err) res.send(err);
-		res.json(movies);
-	});
+        res.json(movies);
+    });
 });
 
 app.post('/api/movies', function(req, res) {
