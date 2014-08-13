@@ -26,15 +26,17 @@ app.controller('mainController', function($scope, $http) {
 });
 
 
-app.controller('addMovieController', function($scope, $http) {
-    // empty objecto to hold the form data
+app.controller('addMovieController', function($scope, $http, $location) {
+    // empty object to hold the form data
     $scope.formData = {};
 
     $scope.processForm = function() {
         $http.post('/api/movies', $scope.formData)
             .success(function(data) {
+                $location.path('/movies/'+data._id);
             })
             .error(function(data) {
+                $scope.error = data;
             });
     };
 });

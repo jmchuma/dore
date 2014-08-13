@@ -57,7 +57,9 @@ app.post('/api/movies', function(req, res) {
         },
         function(err, movie){
             if (err) {
+                res.send(400, err);
             } else {
+                res.send(201, movie);
             }
         });
 });

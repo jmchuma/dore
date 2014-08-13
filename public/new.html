@@ -1,3 +1,5 @@
+<span ng-if="error">Movie not created {{ error }}</span>
+
 <form ng-submit="processForm()" >
 	<label for="title">Título</label>
 	<input id="title" name="title" type="text" ng-model="formData.title" required/>
