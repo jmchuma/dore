@@ -83,6 +83,16 @@ app.get('/api/movies/:id', function(req, res) {
     });
 });
 
+app.put('/api/movies/:id', function(req, res) {
+    Movie.update({_id: req.param('id')}, req.body, function(err, total, raw) {
+        if(err)
+            res.send(409, err);
+        else
+            res.json(200);
+        console.log(raw);
+    });
+});
+
 
 // frontend
 app.get('*', function(req, res) {

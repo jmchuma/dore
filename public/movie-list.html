@@ -1,3 +1,5 @@
+<a href="/movies/new">Agregar</a>
+
 <div class="movie" ng-repeat="movie in movies">
 Título: {{movie.title}} <br/>
 
@@ -14,6 +16,7 @@ Dore notes: {{movie.dore_notes}} <br />
 
 See <a href="/movies/{{movie._id}}">details</a>
 
+<a href="/movies/edit/{{movie._id}}">Editar</a>
 <button ng-click="delete(movie._id, $index)">Eliminar</button>
 </div>
 

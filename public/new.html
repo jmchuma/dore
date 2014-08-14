@@ -1,4 +1,5 @@
 <span ng-if="error">Movie not created {{ error }}</span>
+<span ng-if="success">Update was successful</span>
 
 <form ng-submit="processForm()" >
 	<label for="title">Título</label>
@@ -41,4 +42,6 @@
 	<textarea id="plot"  name="plot" ng-model="formData.plot" placeholder="Algo más concreto que las notas que ponen en el programa." ></textarea>
 
 	<input type="submit" />
+	<button ng-if="delete" ng-click="delete(formData._id)">Eliminar</button>
+	<a href="/">Movie list</a>
 </form>

@@ -11,6 +11,10 @@ angular.module('doreApp').config(function($locationProvider, $routeProvider) {
             templateUrl: "movie-list.html",
             controller: "movieListController"
         })
+        .when("/movies/edit/:id", {
+            templateUrl: "new.html",
+            controller: "editMovieController"
+        })
         .when("/movies/new", {
             templateUrl: "new.html",
             controller: "addMovieController"
@@ -62,6 +66,45 @@ angular.module('doreApp').controller('addMovieController', ['$scope', '$http',
             })
             .error(function(data) {
                 $scope.error = data;
+            });
+    };
+}]);
+
+
+angular.module('doreApp').controller('editMovieController', ['$scope', '$http',
+         '$routeParams', '$location',
+         function($scope, $http, $routeParams, $location) {
+    // empty object to hold the form data
+    $scope.formData = {};
+
+    $http.get("/api/movies/"+$routeParams.id)
+        .success(function(res) {
+            $scope.formData = res;
+        })
+        .error(function(res) {
+            $scope.error = res;
+        });
+
+    $scope.delete = function(id) {
+        $http.delete("/api/movies/"+id)
+            .success(function(res) {
+                $scope.formData = {};
+                $location.path('/');
+            })
+            .error(function(res) {
+                $scope.error = res;
+            });
+    };
+
+    $scope.processForm = function() {
+        $http.put('/api/movies/'+$routeParams.id, $scope.formData)
+            .success(function(res) {
+                $scope.error = false;
+                $scope.success = true;
+            })
+            .error(function(res) {
+                $scope.error = res;
+                $scope.sueccess = false;
             });
     };
 }]);
