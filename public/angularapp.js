@@ -38,6 +38,15 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
             console.log('Error: ' + response);
         });
 
+        $scope.delete = function(id, index) {
+            $http.delete("/api/movies/"+id)
+                .success(function(res) {
+                    $scope.movies.splice(index, 1);
+            })
+            .error(function(res) {
+                console.log(res);
+            });
+        };
 }]);
 
 

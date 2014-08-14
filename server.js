@@ -64,8 +64,17 @@ app.post('/api/movies', function(req, res) {
         });
 });
 
-app.get('/api/movies/:movie_id', function(req, res) {
-    Movie.findById(req.param('movie_id'), function(err, movie) {
+app.delete('/api/movies/:id', function(req, res) {
+    Movie.remove({_id: req.param('id')}, function(err, movie) {
+        if (err)
+            res.send(404, err);
+        else
+            res.json(204, movie);
+    });
+});
+
+app.get('/api/movies/:id', function(req, res) {
+    Movie.findById(req.param('id'), function(err, movie) {
         if(err) {
             res.json(404, err);
         } else {
