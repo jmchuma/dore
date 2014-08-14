@@ -65,11 +65,11 @@ app.post('/api/movies', function(req, res) {
 });
 
 app.delete('/api/movies/:id', function(req, res) {
-    Movie.remove({_id: req.param('id')}, function(err, movie) {
+    Movie.remove({_id: req.param('id')}, function(err) {
         if (err)
             res.send(404, err);
         else
-            res.json(204, movie);
+            res.json(204);
     });
 });
 
