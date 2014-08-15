@@ -56,10 +56,17 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
 
 angular.module('doreApp').controller('addMovieController', ['$scope', '$http',
         '$location', function($scope, $http, $location) {
-    // empty object to hold the form data
+    // empty objects to hold the form data
+    $scope.dates = {} // hold dates temporarily
+
     $scope.formData = {};
+    $scope.formData.dates = [];
 
     $scope.processForm = function() {
+        $scope.formData.dates.push($scope.dates.date+'T'
+                +$scope.dates.time+'Z'
+        );
+
         $http.post('/api/movies', $scope.formData)
             .success(function(data) {
                 $location.path('/movies/'+data._id);
@@ -76,10 +83,23 @@ angular.module('doreApp').controller('editMovieController', ['$scope', '$http',
          function($scope, $http, $routeParams, $location) {
     // empty object to hold the form data
     $scope.formData = {};
+    $scope.dates = {};
 
     $http.get("/api/movies/"+$routeParams.id)
         .success(function(res) {
             $scope.formData = res;
+            var dateTmp = new Date($scope.formData.dates[0]);
+
+            var a = function(num) {
+                if(num < 10) return '0'+num;
+                return num;
+            }
+
+            $scope.dates.date = dateTmp.getUTCFullYear()
+                +'-'+a(dateTmp.getUTCMonth())
+                +'-'+a(dateTmp.getUTCDate());
+            $scope.dates.time = a(dateTmp.getUTCHours())
+                +':'+a(dateTmp.getUTCMinutes());
         })
         .error(function(res) {
             $scope.error = res;
@@ -97,6 +117,10 @@ angular.module('doreApp').controller('editMovieController', ['$scope', '$http',
     };
 
     $scope.processForm = function() {
+        $scope.formData.dates.push($scope.dates.date+'T'
+                +$scope.dates.time+'Z'
+        );
+
         $http.put('/api/movies/'+$routeParams.id, $scope.formData)
             .success(function(res) {
                 $scope.error = false;

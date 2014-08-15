@@ -4,42 +4,65 @@
 <form ng-submit="processForm()" >
 	<label for="title">Título</label>
 	<input id="title" name="title" type="text" ng-model="formData.title" required/>
+	<br />
 
 	<label for="poster">Cartel</label>
-	<input id="poster" name="title" type="url"  ng-model="formData.posters" />
+	<input id="poster" name="title" type="url" ng-model="formData.poster" />
+	<br />
 
 	<label for="directors">Directores</label>
 	<input id="directors" name="directors" type="text" ng-model="formData.directors" />
+	<br />
 
 	<label for="writers">Guionistas</label>
 	<input id="writers" name="writers" type="text" ng-model="formData.writers" />
+	<br />
 
 	<label for="performers">Intérpretes</label>
 	<input id="performers" name="performers" type="text" ng-model="formData.performers" />
+	<br />
+
 
 	<label for="countries">Paises</label>
 	<input id="countres" name="countres" type="text" ng-model="formData.contries" />
+	<br />
+
 
 	<label for="runtime">Duración</label>
-	<input id="runtime"  name="runtime" type="number" ng-model="formData.runtime" min="0" />
+	<input id="runtime" name="runtime" type="number" ng-model="formData.runtime" min="0" />
+	<br />
+
 
 	<label for="year">Año</label>
-	<input id="year"  name="year" type="number" ng-model="formData.year" min="1890" />
+	<input id="year" name="year" type="number" ng-model="formData.year" min="1890" />
+	<br />
+
 
 	<label for="vo">Versión original</label>
-	<input id="vo"  name="vo" type="text" ng-model="formData.vo" />
+	<input id="vo" name="vo" type="text" ng-model="formData.vo" />
+	<br />
+
 
 	<label for="sub">Subtítulos</label>
-	<input id="sub"  name="sub" type="text" ng-model="formData.sub" />
+	<input id="sub" name="sub" type="text" ng-model="formData.sub" />
+	<br />
+
 
 	<label for="dates">Fechas</label>
-	<input id="dates"  name="dates" type="datetime" ng-model="formData.dates" required/>
+	<input name="date" type="date" ng-model="dates.date" required/>
+	<input name="time" type="time" ng-model="dates.time" required/>
+	<br />
+
 
 	<label for="dore_notes">Notas del cine</label>
-	<textarea id="dore_notes"  name="dore_notes" ng-model="formData.dore_notes" placeholder="Las notas que ponen en el programa." ></textarea>
+	<textarea id="dore_notes" name="dore_notes" ng-model="formData.dore_notes" placeholder="Las notas que ponen en el programa." ></textarea>
+	<br />
+
 
 	<label for="plot">Argumento</label>
-	<textarea id="plot"  name="plot" ng-model="formData.plot" placeholder="Algo más concreto que las notas que ponen en el programa." ></textarea>
+	<textarea id="plot" name="plot" ng-model="formData.plot" placeholder="Algo más concreto que las notas que ponen en el programa." ></textarea>
+	<br />
+
 
 	<input type="submit" />
 	<button ng-if="delete" ng-click="delete(formData._id)">Eliminar</button>
