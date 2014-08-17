@@ -14,7 +14,6 @@
 	<legend>Directores</legend>
 	<button ng-click="addElement(formData.directors)">Agregar director</button><br />
 	<!-- see https://docs.angularjs.org/error/ngRepeat/dupes -->
-	<pre>{{formData.directors | json}}</pre>
 	<span ng-repeat="director in formData.directors track by $index">
 		<input name="director{{$index}}" type="text" ng-model="formData.directors[$index]" placeholder="Ramdom Randomson"/>
 		<button ng-click="removeElement(formData.directors, $index)">Eliminar director</button><br />

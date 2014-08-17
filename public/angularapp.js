@@ -47,23 +47,21 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
     $http.get("/api/movies")
         .success(function(response) {
             console.log(response);
-            //$scope.month = response.month;
-            //$scope.year = response.year;
             $scope.movies = response;
         })
         .error(function(response) {
             console.log('Error: ' + response);
         });
 
-        $scope.delete = function(id, index) {
-            $http.delete("/api/movies/"+id)
-                .success(function(res) {
-                    $scope.movies.splice(index, 1);
-            })
-            .error(function(res) {
-                console.log(res);
-            });
-        };
+    $scope.delete = function(id, index) {
+        $http.delete("/api/movies/"+id)
+            .success(function(res) {
+                $scope.movies.splice(index, 1);
+        })
+        .error(function(res) {
+            console.log(res);
+        });
+    };
 }]);
 
 
