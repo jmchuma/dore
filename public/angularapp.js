@@ -1,4 +1,17 @@
+'use strict';
+
 angular.module('doreApp', ['ngRoute']);
+
+
+angular.module('doreApp')
+.service('ArrayManagerService', function() {
+    this.add = function(set) {
+        set.push('');
+    };
+    this.remove = function(set, index) {
+        set.splice(index, 1);
+    };
+});
 
 
 angular.module('doreApp').config(function($locationProvider, $routeProvider) {
@@ -55,12 +68,20 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
 
 
 angular.module('doreApp').controller('addMovieController', ['$scope', '$http',
-        '$location', function($scope, $http, $location) {
+        '$location', 'ArrayManagerService',
+        function($scope, $http, $location, ArrayManagerService) {
     // empty objects to hold the form data
     $scope.dates = {} // hold dates temporarily
 
     $scope.formData = {};
+    $scope.formData.countries = [];
     $scope.formData.dates = [];
+    $scope.formData.directors = [];
+    $scope.formData.performers = [];
+    $scope.formData.writers = [];
+
+    $scope.addElement = ArrayManagerService.add;
+    $scope.removeElement = ArrayManagerService.remove;
 
     $scope.processForm = function() {
         $scope.formData.dates.push($scope.dates.date+'T'
@@ -79,11 +100,19 @@ angular.module('doreApp').controller('addMovieController', ['$scope', '$http',
 
 
 angular.module('doreApp').controller('editMovieController', ['$scope', '$http',
-         '$routeParams', '$location',
-         function($scope, $http, $routeParams, $location) {
+         '$routeParams', '$location', 'ArrayManagerService',
+         function($scope, $http, $routeParams, $location, ArrayManagerService) {
     // empty object to hold the form data
     $scope.formData = {};
     $scope.dates = {};
+    $scope.formData.countries = [];
+    $scope.formData.dates = [];
+    $scope.formData.directors = [];
+    $scope.formData.performers = [];
+    $scope.formData.writers = [];
+
+    $scope.addElement = ArrayManagerService.add;
+    $scope.removeElement = ArrayManagerService.remove;
 
     $http.get("/api/movies/"+$routeParams.id)
         .success(function(res) {

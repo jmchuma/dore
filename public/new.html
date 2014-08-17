@@ -10,22 +10,46 @@
 	<input id="poster" name="title" type="url" ng-model="formData.poster" />
 	<br />
 
-	<label for="directors">Directores</label>
-	<input id="directors" name="directors" type="text" ng-model="formData.directors" />
-	<br />
+	<fieldset>
+	<legend>Directores</legend>
+	<button ng-click="addElement(formData.directors)">Agregar director</button><br />
+	<!-- see https://docs.angularjs.org/error/ngRepeat/dupes -->
+	<pre>{{formData.directors | json}}</pre>
+	<span ng-repeat="director in formData.directors track by $index">
+		<input name="director{{$index}}" type="text" ng-model="formData.directors[$index]" placeholder="Ramdom Randomson"/>
+		<button ng-click="removeElement(formData.directors, $index)">Eliminar director</button><br />
+	</span>
+	</fieldset>
 
-	<label for="writers">Guionistas</label>
-	<input id="writers" name="writers" type="text" ng-model="formData.writers" />
-	<br />
 
-	<label for="performers">Intérpretes</label>
-	<input id="performers" name="performers" type="text" ng-model="formData.performers" />
-	<br />
+	<fieldset>
+	<legend>Guionistas</legend>
+	<button ng-click="addElement(formData.writers)">Agregar guionista</button><br />
+	<span ng-repeat="writer in formData.writers track by $index">
+		<input name="writers{{$index}}" type="text" placeholder="Ramdom Randomson" />
+		<button ng-click="removeElement(formData.writers, $index)">Eliminar guionista</button><br />
+	</span>
+	</fieldset>
 
 
-	<label for="countries">Paises</label>
-	<input id="countres" name="countres" type="text" ng-model="formData.contries" />
-	<br />
+	<fieldset>
+	<legend>Intérpretes</legend>
+	<button ng-click="addElement(formData.performers)">Agregar intérprete</button><br />
+	<span ng-repeat="performer in formData.performers track by $index">
+		<input name="performers{{$index}}" type="text" />
+		<button ng-click="removeElement(formData.performers, $index)">Eliminar intérprete</button><br />
+	</span>
+	</fieldset>
+
+
+	<fieldset>
+	<legend>Paises</legend>
+	<button ng-click="addElement(formData.countries)">Agregar país</button><br />
+	<span ng-repeat="countries in formData.countries track by $index">
+		<input name="countries{{$index}}" type="text" />
+		<button ng-click="removeElement(formData.countries, $index)">Eliminar país</button><br />
+	</span>
+	</fieldset>
 
 
 	<label for="runtime">Duración</label>
