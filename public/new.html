@@ -12,7 +12,7 @@
 
 	<fieldset>
 	<legend>Directores</legend>
-	<button ng-click="addElement(formData.directors)">Agregar director</button><br />
+	<button ng-click="addElement(formData.directors, '')">Agregar director</button><br />
 	<!-- see https://docs.angularjs.org/error/ngRepeat/dupes -->
 	<span ng-repeat="director in formData.directors track by $index">
 		<input name="director{{$index}}" type="text" ng-model="formData.directors[$index]" placeholder="Ramdom Randomson"/>
@@ -23,7 +23,7 @@
 
 	<fieldset>
 	<legend>Guionistas</legend>
-	<button ng-click="addElement(formData.writers)">Agregar guionista</button><br />
+	<button ng-click="addElement(formData.writers, '')">Agregar guionista</button><br />
 	<span ng-repeat="writer in formData.writers track by $index">
 		<input name="writers{{$index}}" type="text" placeholder="Ramdom Randomson" />
 		<button ng-click="removeElement(formData.writers, $index)">Eliminar guionista</button><br />
@@ -33,7 +33,7 @@
 
 	<fieldset>
 	<legend>Intérpretes</legend>
-	<button ng-click="addElement(formData.performers)">Agregar intérprete</button><br />
+	<button ng-click="addElement(formData.performers, '')">Agregar intérprete</button><br />
 	<span ng-repeat="performer in formData.performers track by $index">
 		<input name="performers{{$index}}" type="text" />
 		<button ng-click="removeElement(formData.performers, $index)">Eliminar intérprete</button><br />
@@ -43,7 +43,7 @@
 
 	<fieldset>
 	<legend>Paises</legend>
-	<button ng-click="addElement(formData.countries)">Agregar país</button><br />
+	<button ng-click="addElement(formData.countries, '')">Agregar país</button><br />
 	<span ng-repeat="countries in formData.countries track by $index">
 		<input name="countries{{$index}}" type="text" />
 		<button ng-click="removeElement(formData.countries, $index)">Eliminar país</button><br />

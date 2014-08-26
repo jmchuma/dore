@@ -5,8 +5,8 @@ angular.module('doreApp', ['ngRoute']);
 
 angular.module('doreApp')
 .service('ArrayManagerService', function() {
-    this.add = function(set) {
-        set.push('');
+    this.add = function(set, elem) {
+        set.push(elem);
     };
     this.remove = function(set, index) {
         set.splice(index, 1);
