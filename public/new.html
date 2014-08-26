@@ -71,10 +71,16 @@
 	<br />
 
 
-	<label for="dates">Fechas</label>
-	<input name="date" type="date" ng-model="dates.date" required/>
-	<input name="time" type="time" ng-model="dates.time" required/>
-	<br />
+	<fieldset>
+	<legend>Horarios</legend>
+	<button ng-click="addElement(formData.dates, ''); addElement(dates, {})">Agregar fecha</button><br />
+	<span ng-repeat="date in formData.dates track by $index">
+		<input name="date" type="date" ng-model="dates[$index].date" required/>
+		<input name="time" type="time" ng-model="dates[$index].time" required/>
+	</span>
+	<pre>{{formData.dates}}</pre>
+	<pre>{{dates}}</pre>
+	</fieldset>
 
 
 	<label for="dore_notes">Notas del cine</label>
