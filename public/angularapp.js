@@ -94,10 +94,8 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
             console.log(res);
         });
     };
-}]);
+}])
 
-
-angular.module('doreApp')
 .controller('addMovieController', ['$scope', '$http', '$routeParams',
         '$location', 'ArrayManagerService', 'ProcessMovieFormService',
         function($scope, $http, $routeParams, $location,
@@ -154,11 +152,10 @@ angular.module('doreApp')
                 });
         };
     }
-}]);
+}])
 
-
-angular.module('doreApp').controller('movieDetailController', ['$scope',
-        '$http', '$routeParams', function($scope, $http, $routeParams) {
+.controller('movieDetailController', ['$scope', '$http', '$routeParams',
+        function($scope, $http, $routeParams) {
     $http.get("/api/movies/"+$routeParams.id)
         .success(function(res) {
             $scope.movie = res;
