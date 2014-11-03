@@ -1,7 +1,7 @@
-angular.module("doreApp", ["ngRoute"]);
+angular.module("DoreApp", ["ngRoute"]);
 
 
-angular.module("doreApp")
+angular.module("DoreApp")
 .service("ArrayManagerService", function() {
     this.add = function(set, elem) {
         set.push(elem);
@@ -44,27 +44,27 @@ angular.module("doreApp")
 }]);
 
 
-angular.module("doreApp").config(function($locationProvider, $routeProvider) {
+angular.module("DoreApp").config(function($locationProvider, $routeProvider) {
     $routeProvider
         .when("/", {
             templateUrl: "movie-list.html",
-            controller: "movieListController"
+            controller: "MovieListController"
         })
         .when("/movies", {
             templateUrl: "movie-list.html",
-            controller: "movieListController"
+            controller: "MovieListController"
         })
         .when("/movies/edit/:id", {
             templateUrl: "new.html",
-            controller: "addMovieController"
+            controller: "AddMovieController"
         })
         .when("/movies/new", {
             templateUrl: "new.html",
-            controller: "addMovieController"
+            controller: "AddMovieController"
         })
         .when("/movies/:id", {
             templateUrl: "movie-detail.html",
-            controller: "movieDetailController"
+            controller: "MovieDetailController"
         })
         .otherwise({redirectTo: "/"});
 
@@ -72,7 +72,7 @@ angular.module("doreApp").config(function($locationProvider, $routeProvider) {
 });
 
 
-angular.module("doreApp").controller("movieListController", ["$scope", "$http",
+angular.module("DoreApp").controller("MovieListController", ["$scope", "$http",
         function($scope, $http) {
     $http.get("/api/movies")
         .success(function(response) {
@@ -94,7 +94,7 @@ angular.module("doreApp").controller("movieListController", ["$scope", "$http",
     };
 }])
 
-.controller("addMovieController", ["$scope", "$http", "$routeParams",
+.controller("AddMovieController", ["$scope", "$http", "$routeParams",
         "$location", "ArrayManagerService", "ProcessMovieFormService",
         function($scope, $http, $routeParams, $location,
             ArrayManagerService, ProcessMovieFormService) {
@@ -152,7 +152,7 @@ angular.module("doreApp").controller("movieListController", ["$scope", "$http",
     }
 }])
 
-.controller("movieDetailController", ["$scope", "$http", "$routeParams",
+.controller("MovieDetailController", ["$scope", "$http", "$routeParams",
         function($scope, $http, $routeParams) {
     $http.get("/api/movies/"+$routeParams.id)
         .success(function(res) {
