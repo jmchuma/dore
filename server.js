@@ -1,17 +1,18 @@
 // set up
-var bodyParser = require('body-parser')
-var express = require('express');
-var mongoose = require('mongoose');
+var bodyParser = require("body-parser")
+var express = require("express");
+var mongoose = require("mongoose");
 
-var mongoUri = 'mongodb://127.0.0.1/cinedore';
+var mongoUri = "mongodb://127.0.0.1/cinedore";
 
 // configuration
 var app = express();
-app.use('/', express.static(__dirname+'/public'));
+app.use("/", express.static(__dirname+"/public"));
+//app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({extended: true}));
 
 mongoose.connect(mongoUri);
-var Movie = mongoose.model('Movie', {
+var Movie = mongoose.model("Movie", {
     title : String,
     poster: String,
     directors : [ String ],
@@ -29,17 +30,17 @@ var Movie = mongoose.model('Movie', {
 
 
 // API
-app.get('/api/days/:day', function(req, res) {
+app.get("/api/days/:day", function(req, res) {
 });
 
-app.get('/api/movies', function(req, res) {
+app.get("/api/movies", function(req, res) {
     Movie.find(function(err, movies) {
         if (err) res.send(err);
         res.json(movies);
     });
 });
 
-app.post('/api/movies', function(req, res) {
+app.post("/api/movies", function(req, res) {
     Movie.create({
         title : req.body.title,
         poster: req.body.poster,
@@ -64,8 +65,8 @@ app.post('/api/movies', function(req, res) {
         });
 });
 
-app.delete('/api/movies/:id', function(req, res) {
-    Movie.remove({_id: req.param('id')}, function(err) {
+app.delete("/api/movies/:id", function(req, res) {
+    Movie.remove({_id: req.param("id")}, function(err) {
         if (err)
             res.send(404, err);
         else
@@ -73,8 +74,8 @@ app.delete('/api/movies/:id', function(req, res) {
     });
 });
 
-app.get('/api/movies/:id', function(req, res) {
-    Movie.findById(req.param('id'), function(err, movie) {
+app.get("/api/movies/:id", function(req, res) {
+    Movie.findById(req.param("id"), function(err, movie) {
         if(err) {
             res.json(404, err);
         } else {
@@ -83,8 +84,8 @@ app.get('/api/movies/:id', function(req, res) {
     });
 });
 
-app.put('/api/movies/:id', function(req, res) {
-    Movie.update({_id: req.param('id')}, req.body, function(err, total, raw) {
+app.put("/api/movies/:id", function(req, res) {
+    Movie.update({_id: req.param("id")}, req.body, function(err, total, raw) {
         if(err)
             res.send(409, err);
         else
@@ -95,11 +96,11 @@ app.put('/api/movies/:id', function(req, res) {
 
 
 // frontend
-app.get('*', function(req, res) {
-    res.sendfile('./public/index.html');
+app.get("*", function(req, res) {
+    res.sendfile("./public/index.html");
 });
 
 
 // run server
-app.listen(8888, function() {console.log('listening')});
+app.listen(8888, function() {console.log("listening")});
 

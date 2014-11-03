@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-angular.module('doreApp', ['ngRoute']);
+angular.module("doreApp", ["ngRoute"]);
 
 
-angular.module('doreApp')
-.service('ArrayManagerService', function() {
+angular.module("doreApp")
+.service("ArrayManagerService", function() {
     this.add = function(set, elem) {
         set.push(elem);
     };
@@ -13,18 +13,18 @@ angular.module('doreApp')
     };
 })
 
-.service('ProcessMovieFormService',
-        ['$scope', '$http', '$routeParams', '$location',
+.service("ProcessMovieFormService",
+        ["$scope", "$http", "$routeParams", "$location",
         function($scope, $http, $routeParams, $location) {
     this.processor = function() {
         for(var i = 0; i < $scope.dates.length; i++){
-            $scope.formData.dates.push($scope.dates[i].date+'T'
-                    +$scope.dates[i].time+'Z'
+            $scope.formData.dates.push($scope.dates[i].date+"T"
+                    +$scope.dates[i].time+"Z"
             );
         }
 
         if($routeParams.id) {
-            $http.put('/api/movies/'+$routeParams.id, $scope.formData)
+            $http.put("/api/movies/"+$routeParams.id, $scope.formData)
                 .success(function(res) {
                     $scope.error = false;
                     $scope.success = true;
@@ -34,9 +34,9 @@ angular.module('doreApp')
                     $scope.sueccess = false;
                 });
         } else {
-            $http.post('/api/movies', $scope.formData)
+            $http.post("/api/movies", $scope.formData)
                 .success(function(data) {
-                    $location.path('/movies/'+data._id);
+                    $location.path("/movies/"+data._id);
                 })
                 .error(function(data) {
                     $scope.error = data;
@@ -46,7 +46,7 @@ angular.module('doreApp')
 }]);
 
 
-angular.module('doreApp').config(function($locationProvider, $routeProvider) {
+angular.module("doreApp").config(function($locationProvider, $routeProvider) {
     $routeProvider
         .when("/", {
             templateUrl: "movie-list.html",
@@ -68,13 +68,13 @@ angular.module('doreApp').config(function($locationProvider, $routeProvider) {
             templateUrl: "movie-detail.html",
             controller: "movieDetailController"
         })
-        .otherwise({redirectTo: '/'});
+        .otherwise({redirectTo: "/"});
 
     $locationProvider.html5Mode(true);
 });
 
 
-angular.module('doreApp').controller('movieListController', ['$scope', '$http',
+angular.module("doreApp").controller("movieListController", ["$scope", "$http",
         function($scope, $http) {
     $http.get("/api/movies")
         .success(function(response) {
@@ -82,7 +82,7 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
             $scope.movies = response;
         })
         .error(function(response) {
-            console.log('Error: ' + response);
+            console.log("Error: " + response);
         });
 
     $scope.delete = function(id, index) {
@@ -96,8 +96,8 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
     };
 }])
 
-.controller('addMovieController', ['$scope', '$http', '$routeParams',
-        '$location', 'ArrayManagerService', 'ProcessMovieFormService',
+.controller("addMovieController", ["$scope", "$http", "$routeParams",
+        "$location", "ArrayManagerService", "ProcessMovieFormService",
         function($scope, $http, $routeParams, $location,
             ArrayManagerService, ProcessMovieFormService) {
     // empty objects to hold the form data
@@ -121,7 +121,7 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
                 $scope.formData = res;
 
                 var num2str = function(num) {
-                    if(num < 10) return '0'+num;
+                    if(num < 10) return "0"+num;
                     return num;
                 }
 
@@ -129,10 +129,10 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
                 for(var i = 0; i < res.dates.length; i++) {
                     dateTmp = new Date(res.dates[i]);
                     $scope.dates.push({
-                        date: dateTmp.getUTCFullYear()+'-'
-                            +num2str(dateTmp.getUTCMonth())+'-'
+                        date: dateTmp.getUTCFullYear()+"-"
+                            +num2str(dateTmp.getUTCMonth())+"-"
                             +num2str(dateTmp.getUTCDate()),
-                        time: num2str(dateTmp.getUTCHours())+':'
+                        time: num2str(dateTmp.getUTCHours())+":"
                             +num2str(dateTmp.getUTCMinutes())
                     });
                 }
@@ -145,7 +145,7 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
             $http.delete("/api/movies/"+id)
                 .success(function(res) {
                     $scope.formData = {};
-                    $location.path('/');
+                    $location.path("/");
                 })
                 .error(function(res) {
                     $scope.error = res;
@@ -154,7 +154,7 @@ angular.module('doreApp').controller('movieListController', ['$scope', '$http',
     }
 }])
 
-.controller('movieDetailController', ['$scope', '$http', '$routeParams',
+.controller("movieDetailController", ["$scope", "$http", "$routeParams",
         function($scope, $http, $routeParams) {
     $http.get("/api/movies/"+$routeParams.id)
         .success(function(res) {
