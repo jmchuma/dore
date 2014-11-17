@@ -1,16 +1,8 @@
-angular.module("DoreApp", ["ngRoute"]);
+angular.module("DoreApp", ["ngRoute"])
+.constant("API_URLS", {movies:"/api/movies/"});
 
 
 angular.module("DoreApp")
-.service("ArrayManagerService", function() {
-    this.add = function(set, elem) {
-        set.push(elem);
-    };
-    this.remove = function(set, index) {
-        set.splice(index, 1);
-    };
-})
-
 .service("ProcessMovieFormService",
         ["$scope", "$http", "$routeParams", "$location",
         function($scope, $http, $routeParams, $location) {
@@ -72,9 +64,12 @@ angular.module("DoreApp").config(function($locationProvider, $routeProvider) {
 });
 
 
-angular.module("DoreApp").controller("MovieListController", ["$scope", "$http",
-        function($scope, $http) {
-    $http.get("/api/movies")
+angular.module("DoreApp")
+.controller("MovieListController", ["$scope", "$http", "API_URLS",
+        function($scope, $http, URLS) {
+
+    // get all the movies
+    $http.get(URLS.movies)
         .success(function(response) {
             console.log(response);
             $scope.movies = response;
@@ -83,8 +78,15 @@ angular.module("DoreApp").controller("MovieListController", ["$scope", "$http",
             console.log("Error: " + response);
         });
 
-    $scope.delete = function(id, index) {
-        $http.delete("/api/movies/"+id)
+    $scope.deleteMovie = deleteMovie;
+
+    /* remove a movie from the list and from the server
+     *
+     * id: the move id on the server
+     * index: the movie index in the local array
+     */
+    function deleteMovie(id, index) {
+        $http.delete(URL.movies+id)
             .success(function(res) {
                 $scope.movies.splice(index, 1);
         })
@@ -95,9 +97,9 @@ angular.module("DoreApp").controller("MovieListController", ["$scope", "$http",
 }])
 
 .controller("AddMovieController", ["$scope", "$http", "$routeParams",
-        "$location", "ArrayManagerService", "ProcessMovieFormService",
+        "$location", "ProcessMovieFormService", "API_URLS"
         function($scope, $http, $routeParams, $location,
-            ArrayManagerService, ProcessMovieFormService) {
+            ProcessMovieFormService, URLS) {
     // empty objects to hold the form data
     $scope.dates = [] // hold dates temporarily
 
@@ -108,13 +110,11 @@ angular.module("DoreApp").controller("MovieListController", ["$scope", "$http",
     $scope.formData.performers = [];
     $scope.formData.writers = [];
 
-    $scope.addElement = ArrayManagerService.add;
-    $scope.removeElement = ArrayManagerService.remove;
-
     $scope.processForm = ProcessMovieFormService.processor;
+    $scope.deleteMovie = deleteMovie;
 
     if($routeParams.id) { // edit existing movie
-        $http.get("/api/movies/"+$routeParams.id)
+        $http.get(URLS.movies+$routeParams.id)
             .success(function(res) {
                 $scope.formData = res;
 
@@ -139,8 +139,8 @@ angular.module("DoreApp").controller("MovieListController", ["$scope", "$http",
                 $scope.error = res;
             });
 
-        $scope.delete = function(id) {
-            $http.delete("/api/movies/"+id)
+        function deleteMovie(id) {
+            $http.delete(URLS.movies+id)
                 .success(function(res) {
                     $scope.formData = {};
                     $location.path("/");
@@ -152,9 +152,9 @@ angular.module("DoreApp").controller("MovieListController", ["$scope", "$http",
     }
 }])
 
-.controller("MovieDetailController", ["$scope", "$http", "$routeParams",
-        function($scope, $http, $routeParams) {
-    $http.get("/api/movies/"+$routeParams.id)
+.controller("MovieDetailController", ["$scope", "$http", "$routeParams", "API_URLS",
+        function($scope, $http, $routeParams, URLS) {
+    $http.get(URLS.movie+$routeParams.id)
         .success(function(res) {
             $scope.movie = res;
         })

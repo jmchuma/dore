@@ -12,41 +12,41 @@
 
 	<fieldset>
 	<legend>Directores</legend>
-	<button ng-click="addElement(formData.directors, '')">Agregar director</button><br />
+	<button ng-click="formData.directors.push('')">Agregar director</button><br />
 	<!-- see https://docs.angularjs.org/error/ngRepeat/dupes -->
 	<span ng-repeat="director in formData.directors track by $index">
 		<input name="director{{$index}}" type="text" ng-model="formData.directors[$index]" placeholder="Ramdom Randomson"/>
-		<button ng-click="removeElement(formData.directors, $index)">Eliminar director</button><br />
+		<button ng-click="formData.directors.splice($index,1)">Eliminar director</button><br />
 	</span>
 	</fieldset>
 
 
 	<fieldset>
 	<legend>Guionistas</legend>
-	<button ng-click="addElement(formData.writers, '')">Agregar guionista</button><br />
+	<button ng-click="formData.writers.push('')">Agregar guionista</button><br />
 	<span ng-repeat="writer in formData.writers track by $index">
 		<input name="writers{{$index}}" type="text" placeholder="Ramdom Randomson" />
-		<button ng-click="removeElement(formData.writers, $index)">Eliminar guionista</button><br />
+		<button ng-click="formData.writers.splice($index,1)">Eliminar guionista</button><br />
 	</span>
 	</fieldset>
 
 
 	<fieldset>
 	<legend>Intérpretes</legend>
-	<button ng-click="addElement(formData.performers, '')">Agregar intérprete</button><br />
+	<button ng-click="formData.performers.push('')">Agregar intérprete</button><br />
 	<span ng-repeat="performer in formData.performers track by $index">
 		<input name="performers{{$index}}" type="text" />
-		<button ng-click="removeElement(formData.performers, $index)">Eliminar intérprete</button><br />
+		<button ng-click="formData.performers.splice($index,1)">Eliminar intérprete</button><br />
 	</span>
 	</fieldset>
 
 
 	<fieldset>
 	<legend>Paises</legend>
-	<button ng-click="addElement(formData.countries, '')">Agregar país</button><br />
+	<button ng-click="formData.countries.push('')">Agregar país</button><br />
 	<span ng-repeat="countries in formData.countries track by $index">
 		<input name="countries{{$index}}" type="text" />
-		<button ng-click="removeElement(formData.countries, $index)">Eliminar país</button><br />
+		<button ng-click="formData.countries.splice($index,1)">Eliminar país</button><br />
 	</span>
 	</fieldset>
 
@@ -73,7 +73,7 @@
 
 	<fieldset>
 	<legend>Horarios</legend>
-	<button ng-click="addElement(formData.dates, ''); addElement(dates, {})">Agregar fecha</button><br />
+	<button ng-click="formData.dates.push(''); dates.push({})">Agregar fecha</button><br />
 	<span ng-repeat="date in formData.dates track by $index">
 		<input name="date" type="date" ng-model="dates[$index].date" required/>
 		<input name="time" type="time" ng-model="dates[$index].time" required/>
@@ -94,6 +94,6 @@
 
 
 	<input type="submit" />
-	<button ng-if="delete" ng-click="delete(formData._id)">Eliminar</button>
+	<button ng-if="deleteMovie" ng-click="deleteMovie(formData._id)">Eliminar</button>
 	<a href="/">Movie list</a>
 </form>
