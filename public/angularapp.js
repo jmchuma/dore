@@ -97,7 +97,7 @@ angular.module("DoreApp")
 }])
 
 .controller("AddMovieController", ["$scope", "$http", "$routeParams",
-        "$location", "ProcessMovieFormService", "API_URLS"
+        "$location", "ProcessMovieFormService", "API_URLS",
         function($scope, $http, $routeParams, $location,
             ProcessMovieFormService, URLS) {
     // empty objects to hold the form data
@@ -111,9 +111,10 @@ angular.module("DoreApp")
     $scope.formData.writers = [];
 
     $scope.processForm = ProcessMovieFormService.processor;
-    $scope.deleteMovie = deleteMovie;
 
     if($routeParams.id) { // edit existing movie
+        $scope.deleteMovie = deleteMovie;
+
         $http.get(URLS.movies+$routeParams.id)
             .success(function(res) {
                 $scope.formData = res;
