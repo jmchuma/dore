@@ -3,40 +3,7 @@ angular.module("DoreApp", ["ngRoute"])
 
 
 angular.module("DoreApp")
-.service("ProcessMovieFormService",
-        ["$scope", "$http", "$routeParams", "$location",
-        function($scope, $http, $routeParams, $location) {
-    this.processor = function() {
-        for(var i = 0; i < $scope.dates.length; i++){
-            $scope.formData.dates.push($scope.dates[i].date+"T"
-                    +$scope.dates[i].time+"Z"
-            );
-        }
-
-        if($routeParams.id) {
-            $http.put("/api/movies/"+$routeParams.id, $scope.formData)
-                .success(function(res) {
-                    $scope.error = false;
-                    $scope.success = true;
-                })
-                .error(function(res) {
-                    $scope.error = res;
-                    $scope.sueccess = false;
-                });
-        } else {
-            $http.post("/api/movies", $scope.formData)
-                .success(function(data) {
-                    $location.path("/movies/"+data._id);
-                })
-                .error(function(data) {
-                    $scope.error = data;
-                });
-        }
-    };
-}]);
-
-
-angular.module("DoreApp").config(function($locationProvider, $routeProvider) {
+.config(function($locationProvider, $routeProvider) {
     $routeProvider
         .when("/", {
             templateUrl: "movie-list.html",
@@ -96,12 +63,9 @@ angular.module("DoreApp")
     }
 }])
 
-.controller("AddMovieController", ["$scope", "$http", "$routeParams",
-        "$location", "ProcessMovieFormService", "API_URLS",
-        function($scope, $http, $routeParams, $location,
-            ProcessMovieFormService, URLS) {
-    // empty objects to hold the form data
-    $scope.dates = [] // hold dates temporarily
+.controller("AddMovieController",
+        ["$scope", "$http", "$routeParams", "$filter", "$location", "API_URLS",
+        function($scope, $http, $routeParams, $filter, $location, URLS) {
 
     $scope.formData = {};
     $scope.formData.countries = [];
@@ -110,31 +74,20 @@ angular.module("DoreApp")
     $scope.formData.performers = [];
     $scope.formData.writers = [];
 
-    $scope.submit = ProcessMovieFormService.processor;
+    $scope.submit = _submit;
 
     if($routeParams.id) { // edit existing movie
         $scope.deleteMovie = _deleteMovie;
 
         $http.get(URLS.movies+$routeParams.id)
             .success(function(res) {
+                res.dates = res.dates.map(function(str) {
+                    return {
+                        date: $filter('date')(str, "yyyy-MM-dd", "+0100"),
+                        time: $filter('date')(str, "HH:mm", "+0100")
+                    };
+                });
                 $scope.formData = res;
-
-                var num2str = function(num) {
-                    if(num < 10) return "0"+num;
-                    return num;
-                }
-
-                var dateTmp;
-                for(var i = 0; i < res.dates.length; i++) {
-                    dateTmp = new Date(res.dates[i]);
-                    $scope.dates.push({
-                        date: dateTmp.getUTCFullYear()+"-"
-                            +num2str(dateTmp.getUTCMonth())+"-"
-                            +num2str(dateTmp.getUTCDate()),
-                        time: num2str(dateTmp.getUTCHours())+":"
-                            +num2str(dateTmp.getUTCMinutes())
-                    });
-                }
             })
             .error(function(res) {
                 $scope.error = res;
@@ -152,10 +105,39 @@ angular.module("DoreApp")
             });
     }
 
+    function _submit() {
+        if($scope.movieForm.$invalid) {
+            $scope.error = "Invalid form. Review the data.";
+            return;
+        };
+
+        data = angular.copy($scope.formData);
+        data.dates = data.dates.map(function(obj){
+            return obj.date+"T"+obj.time+"+0100";
+        });
+
+        var req = $routeParams.id ? $http.put(URLS.movies+$routeParams.id, data)
+                                  : $http.post(URLS.movies, data)
+        req.then(_submitSuccess, _submitError);
+    }
+
+    function _submitError(res) {
+        $scope.error = res;
+    }
+
+    function _submitSuccess(res) {
+        if(res.data._id)
+            $location.path("/movies/"+res.data._id);
+        else
+            $location.path("/movies/"+$routeParams.id);
+    }
+
 }])
 
-.controller("MovieDetailController", ["$scope", "$http", "$routeParams", "API_URLS",
+.controller("MovieDetailController",
+        ["$scope", "$http", "$routeParams", "API_URLS",
         function($scope, $http, $routeParams, URLS) {
+
     $http.get(URLS.movies+$routeParams.id)
         .success(function(res) {
             $scope.movie = res;

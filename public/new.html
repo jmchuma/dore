@@ -1,13 +1,13 @@
 <span ng-if="error">Movie not created {{ error }}</span>
 <span ng-if="success">Update was successful</span>
 
-<form>
+<form name="movieForm">
 	<label for="title">Título</label>
 	<input id="title" name="title" type="text" ng-model="formData.title" required/>
 	<br />
 
 	<label for="poster">Cartel</label>
-	<input id="poster" name="title" type="url" ng-model="formData.poster" />
+	<input id="poster" name="poster" type="url" ng-model="formData.poster" />
 	<br />
 
 	<fieldset>
@@ -73,13 +73,13 @@
 
 	<fieldset>
 	<legend>Horarios</legend>
-	<button ng-click="formData.dates.push(''); dates.push({})">Agregar fecha</button><br />
+	<button ng-click="formData.dates.push({})">Agregar fecha</button><br />
 	<span ng-repeat="date in formData.dates track by $index">
-		<input name="date" type="date" ng-model="dates[$index].date" required/>
-		<input name="time" type="time" ng-model="dates[$index].time" required/>
+		<input name="date{{$index}}" type="date" ng-model="formData.dates[$index].date" placeholder="YYYY-MM-DD" required/>
+		<input name="time{{$index}}" type="time" ng-model="formData.dates[$index].time" placeholder="HH:MM" required/>
+		<button ng-click="formData.dates.splice($index,1);">Eliminar fecha</button><br />
 	</span>
 	<pre>{{formData.dates}}</pre>
-	<pre>{{dates}}</pre>
 	</fieldset>
 
 
