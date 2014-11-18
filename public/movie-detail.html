@@ -1,0 +1,7 @@
+<a href="/">Movie list</a>
+<span ng-if="movie">
+The movie info is <pre>{{ movie | json }}</pre>
+</span>
+<span ng-if="error">
+Movie not found <pre>{{ error | json }}</pre>
+</span>

@@ -1,0 +1,22 @@
+<a href="/movies/new">Agregar</a>
+
+<div class="movie" ng-repeat="movie in movies">
+Título: {{movie.title}} <br/>
+
+Plot: {{movie.plot}} <br />
+
+Dore notes: {{movie.dore_notes}} <br />
+<span ng-repeat="time in movie.dates">
+	{{time.day}} {{time.hour}}
+</span>
+
+<span ng-repeat="director in movie.directors">
+	{{director}}
+</span>
+
+See <a href="/movies/{{movie._id}}">details</a>
+
+<a href="/movies/edit/{{movie._id}}">Editar</a>
+<button ng-click="deleteMovie(movie._id, $index)">Eliminar</button>
+</div>
+
