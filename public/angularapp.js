@@ -78,22 +78,22 @@ angular.module("DoreApp")
             console.log("Error: " + response);
         });
 
-    $scope.deleteMovie = deleteMovie;
+    $scope.deleteMovie = _deleteMovie;
 
     /* remove a movie from the list and from the server
      *
      * id: the move id on the server
      * index: the movie index in the local array
      */
-    function deleteMovie(id, index) {
-        $http.delete(URL.movies+id)
+    function _deleteMovie(id, index) {
+        $http.delete(URLS.movies+id)
             .success(function(res) {
                 $scope.movies.splice(index, 1);
         })
         .error(function(res) {
             console.log(res);
         });
-    };
+    }
 }])
 
 .controller("AddMovieController", ["$scope", "$http", "$routeParams",
@@ -110,10 +110,10 @@ angular.module("DoreApp")
     $scope.formData.performers = [];
     $scope.formData.writers = [];
 
-    $scope.processForm = ProcessMovieFormService.processor;
+    $scope.submit = ProcessMovieFormService.processor;
 
     if($routeParams.id) { // edit existing movie
-        $scope.deleteMovie = deleteMovie;
+        $scope.deleteMovie = _deleteMovie;
 
         $http.get(URLS.movies+$routeParams.id)
             .success(function(res) {
@@ -139,23 +139,24 @@ angular.module("DoreApp")
             .error(function(res) {
                 $scope.error = res;
             });
-
-        function deleteMovie(id) {
-            $http.delete(URLS.movies+id)
-                .success(function(res) {
-                    $scope.formData = {};
-                    $location.path("/");
-                })
-                .error(function(res) {
-                    $scope.error = res;
-                });
-        };
     }
+
+    function _deleteMovie(id) {
+        $http.delete(URLS.movies+id)
+            .success(function(res) {
+                $scope.formData = {};
+                $location.path("/");
+            })
+            .error(function(res) {
+                $scope.error = res;
+            });
+    }
+
 }])
 
 .controller("MovieDetailController", ["$scope", "$http", "$routeParams", "API_URLS",
         function($scope, $http, $routeParams, URLS) {
-    $http.get(URLS.movie+$routeParams.id)
+    $http.get(URLS.movies+$routeParams.id)
         .success(function(res) {
             $scope.movie = res;
         })

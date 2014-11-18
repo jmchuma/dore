@@ -1,7 +1,7 @@
 <span ng-if="error">Movie not created {{ error }}</span>
 <span ng-if="success">Update was successful</span>
 
-<form ng-submit="processForm()" >
+<form>
 	<label for="title">Título</label>
 	<input id="title" name="title" type="text" ng-model="formData.title" required/>
 	<br />
@@ -93,7 +93,7 @@
 	<br />
 
 
-	<input type="submit" />
+	<input type="submit" ng-click="submit()" />
 	<button ng-if="deleteMovie" ng-click="deleteMovie(formData._id)">Eliminar</button>
 	<a href="/">Movie list</a>
 </form>
