@@ -6,23 +6,23 @@ angular.module("DoreApp")
 .config(function($locationProvider, $routeProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: "movie-list.html",
+            templateUrl: "partials/movie-list.html",
             controller: "MovieListController"
         })
         .when("/movies", {
-            templateUrl: "movie-list.html",
+            templateUrl: "partials/movie-list.html",
             controller: "MovieListController"
         })
         .when("/movies/edit/:id", {
-            templateUrl: "new.html",
+            templateUrl: "partials/movie-edit.html",
             controller: "AddMovieController"
         })
         .when("/movies/new", {
-            templateUrl: "new.html",
+            templateUrl: "partials/movie-edit.html",
             controller: "AddMovieController"
         })
         .when("/movies/:id", {
-            templateUrl: "movie-detail.html",
+            templateUrl: "partials/movie-detail.html",
             controller: "MovieDetailController"
         })
         .otherwise({redirectTo: "/"});
