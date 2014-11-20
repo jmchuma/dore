@@ -7,23 +7,23 @@ angular.module("doreMoviesApp")
     $routeProvider
         .when("/", {
             templateUrl: "partials/movie-list.html",
-            controller: "MovieListController"
+            controller: "MovieListCtrl"
         })
         .when("/movies", {
             templateUrl: "partials/movie-list.html",
-            controller: "MovieListController"
+            controller: "MovieListCtrl"
         })
         .when("/movies/edit/:id", {
-            templateUrl: "partials/movie-edit.html",
-            controller: "AddMovieController"
+            templateUrl: "partials/movie-editor.html",
+            controller: "MovieEditorCtrl"
         })
         .when("/movies/new", {
-            templateUrl: "partials/movie-edit.html",
-            controller: "AddMovieController"
+            templateUrl: "partials/movie-editor.html",
+            controller: "MovieEditorCtrl"
         })
         .when("/movies/:id", {
-            templateUrl: "partials/movie-detail.html",
-            controller: "MovieDetailController"
+            templateUrl: "partials/movie-display.html",
+            controller: "MovieDisplayCtrl"
         })
         .otherwise({redirectTo: "/"});
 
@@ -32,7 +32,7 @@ angular.module("doreMoviesApp")
 
 
 angular.module("doreMoviesApp")
-.controller("MovieListController", ["$scope", "$http", "API_URLS",
+.controller("MovieListCtrl", ["$scope", "$http", "API_URLS",
         function($scope, $http, URLS) {
 
     // get all the movies
@@ -63,7 +63,7 @@ angular.module("doreMoviesApp")
     }
 }])
 
-.controller("AddMovieController",
+.controller("MovieEditorCtrl",
         ["$scope", "$http", "$routeParams", "$filter", "$location", "API_URLS",
         function($scope, $http, $routeParams, $filter, $location, URLS) {
 
@@ -134,7 +134,7 @@ angular.module("doreMoviesApp")
 
 }])
 
-.controller("MovieDetailController",
+.controller("MovieDisplayCtrl",
         ["$scope", "$http", "$routeParams", "API_URLS",
         function($scope, $http, $routeParams, URLS) {
 
