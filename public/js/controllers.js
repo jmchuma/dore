@@ -1,4 +1,5 @@
 angular.module("doreMoviesApp.controllers", [])
+
 .controller("MovieDisplayCtrl",
         ["$scope", "$http", "$routeParams", "API_URLS",
         function($scope, $http, $routeParams, URLS) {
@@ -83,34 +84,35 @@ angular.module("doreMoviesApp.controllers", [])
 
 }])
 
-.controller("MovieListCtrl", ["$scope", "$http", "API_URLS",
-        function($scope, $http, URLS) {
+.controller("MovieListCtrl", ["$scope", "MovieFactory",
+        function($scope, Movie) {
 
-    // get all the movies
-    $http.get(URLS.movies)
-        .success(function(response) {
-            console.log(response);
-            $scope.movies = response;
-        })
-        .error(function(response) {
-            console.log("Error: " + response);
-        });
+    Movie.read().then(
+        function(res) {
+            $scope.movies = res.data.map(function(json) {
+                return new Movie(json);
+            });
+        },
+        function(res) {
+            console.log("Error: " + res);
+        }
+    );
 
     $scope.deleteMovie = _deleteMovie;
 
     /* remove a movie from the list and from the server
      *
-     * id: the move id on the server
      * index: the movie index in the local array
      */
-    function _deleteMovie(id, index) {
-        $http.delete(URLS.movies+id)
-            .success(function(res) {
+    function _deleteMovie(index) {
+        $scope.movies[index].delete().then(
+            function(res){
                 $scope.movies.splice(index, 1);
-        })
-        .error(function(res) {
-            console.log(res);
-        });
-    }
+            },
+            function(res){
+                console.log(res);
+            }
+        );
+    };
 }]);
 

@@ -1,4 +1,6 @@
-angular.module("doreMoviesApp", ["ngRoute", "doreMoviesApp.controllers"])
+angular.module("doreMoviesApp", ["ngRoute", "doreMoviesApp.controllers",
+        "doreMoviesApp.factories"])
+
 .constant("API_URLS", {movies: "/api/movies/"})
 
 .config(function($locationProvider, $routeProvider) {
