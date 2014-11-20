@@ -1,8 +1,8 @@
-angular.module("DoreApp", ["ngRoute"])
+angular.module("doreMoviesApp", ["ngRoute"])
 .constant("API_URLS", {movies:"/api/movies/"});
 
 
-angular.module("DoreApp")
+angular.module("doreMoviesApp")
 .config(function($locationProvider, $routeProvider) {
     $routeProvider
         .when("/", {
@@ -31,7 +31,7 @@ angular.module("DoreApp")
 });
 
 
-angular.module("DoreApp")
+angular.module("doreMoviesApp")
 .controller("MovieListController", ["$scope", "$http", "API_URLS",
         function($scope, $http, URLS) {
 
