@@ -1,16 +1,17 @@
 angular.module("doreMoviesApp.controllers", [])
 
 .controller("MovieDisplayCtrl",
-        ["$scope", "$http", "$routeParams", "API_URLS",
-        function($scope, $http, $routeParams, URLS) {
+        ["$scope", "$routeParams", "MovieFactory",
+        function($scope, $routeParams, Movie) {
 
-    $http.get(URLS.movies+$routeParams.id)
-        .success(function(res) {
-            $scope.movie = res;
-        })
-        .error(function(res) {
+    Movie.read($routeParams.id).then(
+        function(res) {
+            $scope.movie = new Movie(res.data);
+        },
+        function(res) {
             $scope.error = res;
-        });
+        }
+    );
 }])
 
 .controller("MovieEditorCtrl",
