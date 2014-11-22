@@ -29,10 +29,11 @@ angular.module("doreMoviesApp.factories", [])
          */
         create: function() {
             deferred = $q.defer();
+            self = this;
 
             $http.post(URLS.movies, this)
                 .success(function(res){
-                    this._id = red.data._id;
+                    self._id = res._id;
                     deferred.resolve(res);
                 })
                 .error(function(res){
@@ -57,7 +58,6 @@ angular.module("doreMoviesApp.factories", [])
 
         setData: function(data) {
             angular.extend(this, data);
-            this.splitDateComponents();
         },
 
         splitDateComponents: function() {

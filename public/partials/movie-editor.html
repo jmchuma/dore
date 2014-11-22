@@ -3,97 +3,97 @@
 
 <form name="movieForm">
 	<label for="title">Título</label>
-	<input id="title" name="title" type="text" ng-model="formData.title" required/>
+	<input id="title" name="title" type="text" ng-model="movie.title" required/>
 	<br />
 
 	<label for="poster">Cartel</label>
-	<input id="poster" name="poster" type="url" ng-model="formData.poster" />
+	<input id="poster" name="poster" type="url" ng-model="movie.poster" />
 	<br />
 
 	<fieldset>
 	<legend>Directores</legend>
-	<button ng-click="formData.directors.push('')">Agregar director</button><br />
+	<button ng-click="movie.directors.push('')">Agregar director</button><br />
 	<!-- see https://docs.angularjs.org/error/ngRepeat/dupes -->
-	<span ng-repeat="director in formData.directors track by $index">
-		<input name="director{{$index}}" type="text" ng-model="formData.directors[$index]" placeholder="Director Directorson"/>
-		<button ng-click="formData.directors.splice($index,1)">Eliminar director</button><br />
+	<span ng-repeat="director in movie.directors track by $index">
+		<input name="director{{$index}}" type="text" ng-model="movie.directors[$index]" placeholder="Director Directorson"/>
+		<button ng-click="movie.directors.splice($index,1)">Eliminar director</button><br />
 	</span>
 	</fieldset>
 
 
 	<fieldset>
 	<legend>Guionistas</legend>
-	<button ng-click="formData.writers.push('')">Agregar guionista</button><br />
-	<span ng-repeat="writer in formData.writers track by $index">
-		<input name="writer{{$index}}" type="text" ng-model="formData.writers[$index]" placeholder="Writer Writerson" />
-		<button ng-click="formData.writers.splice($index,1)">Eliminar guionista</button><br />
+	<button ng-click="movie.writers.push('')">Agregar guionista</button><br />
+	<span ng-repeat="writer in movie.writers track by $index">
+		<input name="writer{{$index}}" type="text" ng-model="movie.writers[$index]" placeholder="Writer Writerson" />
+		<button ng-click="movie.writers.splice($index,1)">Eliminar guionista</button><br />
 	</span>
 	</fieldset>
 
 
 	<fieldset>
 	<legend>Intérpretes</legend>
-	<button ng-click="formData.performers.push('')">Agregar intérprete</button><br />
-	<span ng-repeat="performer in formData.performers track by $index">
-		<input name="performer{{$index}}" type="text" ng-model="formData.performers[$index]" placeholder="Actress Actressen" />
-		<button ng-click="formData.performers.splice($index,1)">Eliminar intérprete</button><br />
+	<button ng-click="movie.performers.push('')">Agregar intérprete</button><br />
+	<span ng-repeat="performer in movie.performers track by $index">
+		<input name="performer{{$index}}" type="text" ng-model="movie.performers[$index]" placeholder="Actress Actressen" />
+		<button ng-click="movie.performers.splice($index,1)">Eliminar intérprete</button><br />
 	</span>
 	</fieldset>
 
 
 	<fieldset>
 	<legend>Paises</legend>
-	<button ng-click="formData.countries.push('')">Agregar país</button><br />
-	<span ng-repeat="countries in formData.countries track by $index">
-		<input name="countries{{$index}}" type="text" ng-model="formData.countries[$index]" />
-		<button ng-click="formData.countries.splice($index,1)">Eliminar país</button><br />
+	<button ng-click="movie.countries.push('')">Agregar país</button><br />
+	<span ng-repeat="country in movie.countries track by $index">
+		<input name="country{{$index}}" type="text" ng-model="movie.countries[$index]" />
+		<button ng-click="movie.countries.splice($index,1)">Eliminar país</button><br />
 	</span>
 	</fieldset>
 
 
 	<label for="runtime">Duración</label>
-	<input id="runtime" name="runtime" type="number" ng-model="formData.runtime" min="0" />
+	<input id="runtime" name="runtime" type="number" ng-model="movie.runtime" min="0" />
 	<br />
 
 
 	<label for="year">Año</label>
-	<input id="year" name="year" type="number" ng-model="formData.year" min="1890" />
+	<input id="year" name="year" type="number" ng-model="movie.year" min="1890" />
 	<br />
 
 
 	<label for="vo">Versión original</label>
-	<input id="vo" name="vo" type="text" ng-model="formData.vo" />
+	<input id="vo" name="vo" type="text" ng-model="movie.vo" />
 	<br />
 
 
 	<label for="sub">Subtítulos</label>
-	<input id="sub" name="sub" type="text" ng-model="formData.sub" />
+	<input id="sub" name="sub" type="text" ng-model="movie.sub" />
 	<br />
 
 
 	<fieldset>
 	<legend>Horarios</legend>
-	<button ng-click="formData.dates.push({})">Agregar fecha</button><br />
-	<span ng-repeat="date in formData.dates track by $index">
-		<input name="date{{$index}}" type="date" ng-model="formData.dates[$index].date" placeholder="YYYY-MM-DD" required/>
-		<input name="time{{$index}}" type="time" ng-model="formData.dates[$index].time" placeholder="HH:MM" required/>
-		<button ng-click="formData.dates.splice($index,1);">Eliminar fecha</button><br />
+	<button ng-click="movie.dates.push({})">Agregar fecha</button><br />
+	<span ng-repeat="date in movie.dates track by $index">
+		<input name="date{{$index}}" type="date" ng-model="movie.dates[$index].date" placeholder="YYYY-MM-DD" required/>
+		<input name="time{{$index}}" type="time" ng-model="movie.dates[$index].time" placeholder="HH:MM" required/>
+		<button ng-click="movie.dates.splice($index,1);">Eliminar fecha</button><br />
 	</span>
-	<pre>{{formData.dates}}</pre>
+	<pre>{{movie.dates}}</pre>
 	</fieldset>
 
 
 	<label for="dore_notes">Notas del cine</label>
-	<textarea id="dore_notes" name="dore_notes" ng-model="formData.dore_notes" placeholder="Las notas que ponen en el programa." ></textarea>
+	<textarea id="dore_notes" name="dore_notes" ng-model="movie.dore_notes" placeholder="Las notas que ponen en el programa." ></textarea>
 	<br />
 
 
 	<label for="plot">Argumento</label>
-	<textarea id="plot" name="plot" ng-model="formData.plot" placeholder="Algo más concreto que las notas que ponen en el programa." ></textarea>
+	<textarea id="plot" name="plot" ng-model="movie.plot" placeholder="Algo más concreto que las notas que ponen en el programa." ></textarea>
 	<br />
 
 
 	<input type="submit" ng-click="submit()" />
-	<button ng-if="deleteMovie" ng-click="deleteMovie(formData._id)">Eliminar</button>
+	<button ng-if="deleteMovie" ng-click="deleteMovie()">Eliminar</button>
 	<a href="/">Movie list</a>
 </form>
